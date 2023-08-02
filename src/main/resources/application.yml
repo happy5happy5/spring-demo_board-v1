@@ -1,13 +1,27 @@
-server:
-  port: 8080
-spring:
-  web:
-    resources:
-      static-locations: classpath:/static/
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: ${DB_PASSWORD}
-    url: jdbc:mysql://localhost:3306/test_db_board?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8
+  server:
+    port: 8080
+  spring:
+    profiles:
+      active: security
+    web:
+      resources:
+        static-locations: classpath:/static/
+    datasource:
+      url: jdbc:mysql://localhost:3306/{?????}?serverTimezone=UTC&useSSL=false
+      username: root1234
+      password: 1234
 
-
+# application-security.yml ??? ????
+#  server:
+#    port: 9090
+#  spring:
+#    web:
+#      resources:
+#        static-locations: classpath:/static/
+#    datasource:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/???????serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=utf8
+#      username: ???
+#      password: ???
+# ??? ??????
+# application-security.yml ? git ignore? ???????? ?? ???

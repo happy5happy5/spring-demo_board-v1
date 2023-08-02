@@ -1,6 +1,6 @@
 HELP.md
-# properties file
-*.properties
+# application-security.yml 파일은 git에 올리지 않습니다.
+application-security.yml
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
