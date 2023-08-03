@@ -1,24 +1,56 @@
 package com.msa.springdemo_boardv1.controller;
 
 import com.msa.springdemo_boardv1.entity.Board;
+import com.msa.springdemo_boardv1.repository.BoardRepository;
 import com.msa.springdemo_boardv1.service.BoardService;
+import com.msa.springdemo_boardv1.utils.PageMaker;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 
+    @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
+
     @GetMapping("/list")
-    public String list(){
+    public String list(Model model, @RequestParam(defaultValue = "1") Integer pageNum){
         System.out.println("[BOARD CONTROLLER]list...");
+        Page<Board> pageResult = boardService.GetBoardListPaging(pageNum, 4);
+        PageMaker pageMaker = new PageMaker(pageResult,10);
+        model.addAttribute("boardList", pageResult.getContent());
+        model.addAttribute("pageMaker", pageMaker);
         return "board/list";
     }
+    @PostConstruct
+    public void init(){
+        System.out.println("[BOARD CONTROLLER]init...");
+        IntStream.rangeClosed(1, 125).forEach(i -> {
+        Board board = Board.builder()
+                .title("title" + i)
+                .content("content" + i)
+                .writer("writer" + i)
+                .password("password" + i)
+                .build();
+        boardRepository.save(board);
+        });
+    }
+
+
 
 //    @RequestMapping("/list2")
 //    public String list2(){
@@ -41,13 +73,19 @@ public class BoardController {
         return "redirect:/board/detail";
     }
 
+    @GetMapping("/create")
+    public String createForm(){
+        System.out.println("[BOARD CONTROLLER]createForm...");
+        return "board/create";
+    }
+
     @GetMapping("/detail")
-    public String detail(Long boardId, Model model){
+    public String detail(@RequestParam Long boardId, Model model){
         System.out.println("[BOARD CONTROLLER]detail...");
         Board board = boardService.GetBoardById(boardId);
         model.addAttribute("board", board);
         //detail로 redirect
-        return "board/detail";
+        return "board/detail?boardId="+boardId;
     }
 
     @PostMapping("/update")

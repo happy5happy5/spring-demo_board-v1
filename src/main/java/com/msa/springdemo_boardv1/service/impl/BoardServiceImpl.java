@@ -4,6 +4,9 @@ import com.msa.springdemo_boardv1.entity.Board;
 import com.msa.springdemo_boardv1.repository.BoardRepository;
 import com.msa.springdemo_boardv1.service.BoardService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,8 +31,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Board UpdateBoard(Board board) {
-        return boardRepository.save(board);
+    public void UpdateBoard(Board board) {
+        boardRepository.save(board);
     }
 
     @Override
@@ -50,5 +53,15 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board GetBoardByWriter(String writer) {
         return boardRepository.findByWriter(writer);
+    }
+
+    @Override
+    public Page<Board> GetBoardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Board> GetBoardListPaging(Integer pageNum, int i) {
+        return boardRepository.findAll(PageRequest.of(pageNum - 1, i));
     }
 }

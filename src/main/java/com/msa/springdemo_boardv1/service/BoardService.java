@@ -1,6 +1,8 @@
 package com.msa.springdemo_boardv1.service;
 
 import com.msa.springdemo_boardv1.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface BoardService {
     void CreateBoard(Board board);
@@ -9,7 +11,7 @@ public interface BoardService {
 
     Board GetBoardById(Long boardId);
 
-    Board UpdateBoard(Board board);
+    void UpdateBoard(Board board);
 
     long CountBoards();
 
@@ -19,4 +21,7 @@ public interface BoardService {
 
     Board GetBoardByWriter(String writer);
 
+    Page<Board> GetBoardList(Pageable pageable);
+
+    Page<Board> GetBoardListPaging(Integer pageNum, int i);
 }

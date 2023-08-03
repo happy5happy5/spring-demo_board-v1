@@ -1,0 +1,24 @@
+
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" th:class="${pageMaker.prev eq false} ? 'disabled' : ''">
+      <a class="page-link" th:if="${pageMaker.prev eq true}" th:href="@{/board/list(pageNum=${pageMaker.startPage} - 1)}">&laquo;</a>
+    </li>
+    <li class="page-item" th:class="${pageMaker.prev} ? '' : 'disabled'">
+      <a class="page-link" th:if="${pageMaker.prev}" th:href="@{/board/list(pageNum=${pageMaker.currentPage} - 1)}" th:text="${pageMaker.currentPage} - 1"></a>
+    </li>
+<!--    <li class="page-item" th:each="page : ${pageMaker.pages.stream().limit(6).filter(p -> (p >= (pageMaker.currentPage - 2)) && (p <= (pageMaker.currentPage + 3))).collect(Collectors.toList())}" th:class="${page == pageMaker.currentPage} ? 'active' : ''">-->
+<!--      <a class="page-link" th:href="@{/board/list(pageNum=${page})}" th:text="${page}"></a>-->
+<!--    </li>-->
+
+    <li class="page-item" th:class="${pageMaker.next} ? '' : 'disabled'">
+      <a class="page-link" th:if="${pageMaker.next}" th:href="@{/board/list(pageNum=${pageMaker.currentPage} + 1)}" th:text="${pageMaker.currentPage} + 1"></a>
+    </li>
+    <li class="page-item" th:class="${pageMaker.next eq false} ? 'disabled' : ''">
+      <a class="page-link" th:if="${pageMaker.next eq true}" th:href="@{/board/list(pageNum=${pageMaker.endPage} + 1)}">&raquo;</a>
+    </li>
+<!--    <li class="page-item" th:if="${pageMaker.endPage >= (pageMaker.currentPage + 5)}">-->
+<!--      <a class="page-link" th:href="@{/board/list(pageNum=${pageMaker.endPage} + 1)}">다음</a>-->
+<!--    </li>-->
+  </ul>
+</nav>

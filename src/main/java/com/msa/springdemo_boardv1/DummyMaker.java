@@ -1,45 +1,35 @@
-package com.msa.springdemo_boardv1;
-
-import com.msa.springdemo_boardv1.entity.Board;
-import com.msa.springdemo_boardv1.repository.BoardRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-
-@Component
-@AllArgsConstructor
-public class DummyMaker implements CommandLineRunner {
-
-    BoardRepository boardRepository;
-
-    @Override
-    public void run(String... args) throws Exception {
-        Board board1 = Board.builder()
-                .title("title1")
-                .content("content1")
-                .writer("writer1")
-                .password("password1")
-                .build();
-
-        Board board2 = Board.builder()
-                .title("title2")
-                .content("content2")
-                .writer("writer2")
-                .password("password2")
-                .build();
-
-        Board board3 = Board.builder()
-                .title("title3")
-                .content("content3")
-                .writer("writer3")
-                .password("password3")
-                .build();
-
-        boardRepository.save(board1);
-        boardRepository.save(board2);
-        boardRepository.save(board3);
-
-        System.out.println("Dummy data inserted");
-    }
-
-}
+//package com.msa.springdemo_boardv1;
+//
+//import com.msa.springdemo_boardv1.entity.Board;
+//import com.msa.springdemo_boardv1.repository.BoardRepository;
+//import lombok.AllArgsConstructor;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.CommandLineRunner;
+//import org.springframework.stereotype.Component;
+//
+//import java.util.stream.IntStream;
+//
+//@Component
+//@AllArgsConstructor
+//public class DummyMaker implements CommandLineRunner {
+//
+//    private BoardRepository boardRepository;
+//
+//    @Override
+//    public void run(String... args) throws Exception {
+//        if (boardRepository.count() == 0) { // 데이터베이스에 데이터가 없는 경우에만 더미 데이터 생성
+//            IntStream.rangeClosed(1, 125).forEach(i -> {
+//                Board board = Board.builder()
+//                        .title("title" + i)
+//                        .content("content" + i)
+//                        .writer("writer" + i)
+//                        .password("password" + i)
+//                        .build();
+//                boardRepository.save(board);
+//            });
+//
+//            System.out.println("Dummy data inserted");
+//        }
+//    }
+//
+//}
